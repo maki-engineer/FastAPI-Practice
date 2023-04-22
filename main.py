@@ -44,8 +44,11 @@ async def read_item(item_id: int, q: Union[str, None] = None, short: bool = Fals
   return item
 
 @app.put("/items/{item_id}")
-async def create_item(item_id: int, item: Item):
-  return {"item_id": item_id, **item.dict()}
+async def create_item_designated(item_id: int, item: Item, q: Union[str, None] = None):
+  result = {"item_id": item_id, **item.dict()}
+  if q:
+    result.update({"q": q})
+  return result
 
 @app.get("/users/me")
 def read_user_me():
