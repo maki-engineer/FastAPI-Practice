@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 from pydantic import BaseModel
 
 class ModelName(str, Enum):
@@ -71,3 +71,7 @@ async def get_model(model_name: ModelName):
 @app.get("/files/{file_path:path}")
 async def read_file(file_path: str):
   return {"file_path": file_path}
+
+@app.post("/login")
+async def login(username: str = Form(), password: str = Form()):
+  return {"username": username}
